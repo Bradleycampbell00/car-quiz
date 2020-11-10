@@ -5,6 +5,9 @@ const startPrompt = document.querySelector("#start-prompt");
 const questionContainer = document.querySelector("#question-container");
 const questionText = document.querySelector("#question-text");
 const answersDiv = document.querySelector("#answers");
+
+// Questions
+
 const questions = [
   {
     text: "Who Won the 1966 24 Hour of Lemans?",
@@ -52,9 +55,9 @@ const questions = [
     correctIndex: 0,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
-    correctIndex: 0,
+    text: "What does ABS Stand for?",
+    answers: ["Air Bag System", "ALternate Blinking System", "Anti-lock Braking System"],
+    correctIndex: 2,
   },
 ];
 let questionIndex = 0;
@@ -66,6 +69,7 @@ function handleStartClick() {
   questionContainer.style.display = "block";
   renderQuestion();
   Timer();
+//   Done();
 }
 function handleAnswerClick(e) {
   e.preventDefault();
@@ -80,6 +84,13 @@ function handleAnswerClick(e) {
   }
   questionIndex++;
   renderQuestion();
+
+
+  if (questionIndex == questions.length) {
+    gameOver();
+  } else {
+    renderQuestion();
+  }
 }
 function renderQuestion() {
   const currentQuestion = questions[questionIndex];
@@ -95,6 +106,15 @@ function renderQuestion() {
 }
  var timerEl = document.querySelector(".time")
  let timeLeft = 75;
+
+
+    // function Done () {
+    //     if (questionIndex > questionIndex.length) {
+    //         clearInterval(timeInterval)
+    //         window.open("highscore.html")
+    //     }
+    // }
+
 
     // Timer
 function Timer() {
