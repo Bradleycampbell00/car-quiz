@@ -7,24 +7,24 @@ const questionText = document.querySelector("#question-text");
 const answersDiv = document.querySelector("#answers");
 const questions = [
   {
-    text: "Who won the 1966 24 hour of Lemans?",
+    text: "Who Won the 1966 24 Hour of Lemans?",
     answers: ["Ferrai", "Ford", "Fiat"],
     correctIndex: 1,
   },
   {
-    text: "What was the first American Muscle Car?",
+    text: "What was the First American Muscle Car?",
     answers: ["Pontiac GTO", "Oldsmobile Rocket 88", "Ford Mustang"],
     correctIndex: 1,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
+    text: "What was the First mass Produced Car?",
+    answers: ["Model T", "Benz Patent-Motorwagen", "Rolls Royce 10-HP"],
     correctIndex: 0,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
-    correctIndex: 0,
+    text: "What is the best Selling Car/Truck of all Time?",
+    answers: ["Chevy Cruise", "Ford F-150", "Toyota Corrola"],
+    correctIndex: 2,
   },
   {
     text: "question?",
@@ -62,9 +62,10 @@ startBtn.addEventListener("click", handleStartClick);
 answersDiv.addEventListener("click", handleAnswerClick);
 function handleStartClick() {
   startPrompt.style.display = "none";
-  startBtn.style.display = "none"
+  startBtn.style.display = "none";
   questionContainer.style.display = "block";
   renderQuestion();
+  Timer();
 }
 function handleAnswerClick(e) {
   e.preventDefault();
@@ -73,8 +74,9 @@ function handleAnswerClick(e) {
   const correctAnswer = question.answers[question.correctIndex];
   const userAnswer = e.target.textContent;
   if (userAnswer === correctAnswer) {
+
   } else {
-      
+    timeLeft -=10
   }
   questionIndex++;
   renderQuestion();
@@ -91,16 +93,20 @@ function renderQuestion() {
     answersDiv.appendChild(btn);
   }
 }
+ var timerEl = document.querySelector(".time")
+ let timeLeft = 75;
 
+    // Timer
 function Timer() {
-  var timeLeft = 75;
-
   var timeInterval = setInterval(function () {
-    timerEl.textContent = "Time:" + timeLeft;
+    timerEl.textContent = "Time: " + timeLeft;
     timeLeft--;
 
-    if (timeLeft === 0) {
+    if (timeLeft <= 0){
+      clearInterval(timeInterval);
+      window.open("highscore.html")
     }
+    console.log(timeLeft)
   }, 1000);
 }
 
