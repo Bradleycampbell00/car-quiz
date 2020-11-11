@@ -3,8 +3,11 @@
 const startBtn = document.querySelector("#start");
 const startPrompt = document.querySelector("#start-prompt");
 const questionContainer = document.querySelector("#question-container");
+const formContainer = document.querySelector(".finalresult")
 const questionText = document.querySelector("#question-text");
 const answersDiv = document.querySelector("#answers");
+let theScore = document.querySelector("#theScore");
+let Intials = document.querySelector("#inputIntials")
 
 // Questions
 
@@ -30,28 +33,28 @@ const questions = [
     correctIndex: 2,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
+    text: "What is the Current Worlds Fastest Production Car?",
+    answers: ["Bugatti Chiron", "SSC Tuatara", "Koenigsegg Regera"],
+    correctIndex: 2,
+  },
+  {
+    text: "What Speeds do Top Fuel Cars Hit?",
+    answers: ["300 mph", " 200 mph", "400 mph"],
     correctIndex: 0,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
-    correctIndex: 0,
+    text: "Who is the Biggest Automaker in the World?",
+    answers: ["Daimler", "Toyota", "Volkswagon"],
+    correctIndex: 2,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
-    correctIndex: 0,
+    text: "What is the Cheapest New Car for Sale?",
+    answers: ["Honda Fit", "Nissan Versa", "Chevrolet Spark"],
+    correctIndex: 2,
   },
   {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
-    correctIndex: 0,
-  },
-  {
-    text: "question?",
-    answers: ["answer 1", "answer 2", "answer 2"],
+    text: "What does R mean on the Shifter?",
+    answers: ["Race Mode", "Reverse", "Refuel"],
     correctIndex: 0,
   },
   {
@@ -69,7 +72,7 @@ function handleStartClick() {
   questionContainer.style.display = "block";
   renderQuestion();
   Timer();
-//   Done();
+
 }
 function handleAnswerClick(e) {
   e.preventDefault();
@@ -83,9 +86,9 @@ function handleAnswerClick(e) {
     timeLeft -=10
   }
   questionIndex++;
-  renderQuestion();
 
 
+// Game over
   if (questionIndex == questions.length) {
     gameOver();
   } else {
@@ -106,15 +109,7 @@ function renderQuestion() {
 }
  var timerEl = document.querySelector(".time")
  let timeLeft = 75;
-
-
-    // function Done () {
-    //     if (questionIndex > questionIndex.length) {
-    //         clearInterval(timeInterval)
-    //         window.open("highscore.html")
-    //     }
-    // }
-
+ let score = 0;
 
     // Timer
 function Timer() {
@@ -129,7 +124,21 @@ function Timer() {
     console.log(timeLeft)
   }, 1000);
 }
+function gameOver (){
+    timerEl.style.display = "none"
+    questionContainer.style.display = "none";
+    formContainer.style.display = "block";
+    score = timeLeft;
+    theScore.textContent = `${score}`;
+    clearInterval(timeInterval);
+}
 
+
+function finalScore (e){
+    e.preventDefault();
+    highscore = theScore + Intials
+
+}
 // when start is clicked it will replace the h1 with a question and the start button with 4 prompts
 
 // each time a question is anwsered it will move onto the next question and if anwsered wrong itll take 10 seconds away
