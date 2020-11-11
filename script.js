@@ -3,12 +3,15 @@
 const startBtn = document.querySelector("#start");
 const startPrompt = document.querySelector("#start-prompt");
 const questionContainer = document.querySelector("#question-container");
-const formContainer = document.querySelector(".finalresult")
+const formContainer = document.querySelector(".finalresult");
 const questionText = document.querySelector("#question-text");
 const answersDiv = document.querySelector("#answers");
+const submitBtn = document.querySelector("#submit");
+const scoreFinal = document.querySelector(".score");
 let theScore = document.querySelector("#theScore");
-let Intials = document.querySelector("#inputIntials")
-
+let Intials = document.querySelector("#inputInitials");
+let timeLeft = 75;
+let score = 0;
 // Questions
 
 const questions = [
@@ -59,7 +62,11 @@ const questions = [
   },
   {
     text: "What does ABS Stand for?",
-    answers: ["Air Bag System", "ALternate Blinking System", "Anti-lock Braking System"],
+    answers: [
+      "Air Bag System",
+      "ALternate Blinking System",
+      "Anti-lock Braking System",
+    ],
     correctIndex: 2,
   },
 ];
@@ -72,7 +79,6 @@ function handleStartClick() {
   questionContainer.style.display = "block";
   renderQuestion();
   Timer();
-
 }
 function handleAnswerClick(e) {
   e.preventDefault();
@@ -81,14 +87,12 @@ function handleAnswerClick(e) {
   const correctAnswer = question.answers[question.correctIndex];
   const userAnswer = e.target.textContent;
   if (userAnswer === correctAnswer) {
-
   } else {
-    timeLeft -=10
+    timeLeft -= 10;
   }
   questionIndex++;
 
-
-// Game over
+  // Game over
   if (questionIndex == questions.length) {
     gameOver();
   } else {
@@ -107,38 +111,51 @@ function renderQuestion() {
     answersDiv.appendChild(btn);
   }
 }
- var timerEl = document.querySelector(".time")
- let timeLeft = 75;
- let score = 0;
+var timerEl = document.querySelector(".time");
 
-    // Timer
+// Timer
 function Timer() {
   var timeInterval = setInterval(function () {
     timerEl.textContent = "Time: " + timeLeft;
     timeLeft--;
 
-    if (timeLeft <= 0){
+    if (timeLeft <= 0) {
       clearInterval(timeInterval);
-      window.open("highscore.html")
+      gameOver();
     }
-    console.log(timeLeft)
+    console.log(timeLeft);
   }, 1000);
 }
-function gameOver (){
-    timerEl.style.display = "none"
-    questionContainer.style.display = "none";
-    formContainer.style.display = "block";
-    score = timeLeft;
-    theScore.textContent = `${score}`;
-    clearInterval(timeInterval);
+function gameOver() {
+  timerEl.style.display = "none";
+  questionContainer.style.display = "none";
+  formContainer.style.display = "block";
+  score = timeLeft;
+
+  theScore.textContent = `${score}`;
+}
+
+if(submitBtn){
+  submitBtn.addEventListener("click", finalScore)
+
+}
+
+function finalScore(e) {
+  e.preventDefault();
+  let Int = Intials.value;
+  if (Int === "") {
+    return;
+  }
+  localStorage.setItem("User", Int);
+  const highscore = JSON.stringify(score);
+
+  localStorage.setItem("finalscore", highscore);
+
+  window.location.replace("highscore.html");
+  renderScoreBoard();
 }
 
 
-function finalScore (e){
-    e.preventDefault();
-    highscore = theScore + Intials
-
-}
 // when start is clicked it will replace the h1 with a question and the start button with 4 prompts
 
 // each time a question is anwsered it will move onto the next question and if anwsered wrong itll take 10 seconds away
