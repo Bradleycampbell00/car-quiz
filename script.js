@@ -135,9 +135,8 @@ function gameOver() {
   theScore.textContent = `${score}`;
 }
 
-if(submitBtn){
-  submitBtn.addEventListener("click", finalScore)
-
+if (submitBtn) {
+  submitBtn.addEventListener("click", finalScore);
 }
 
 function finalScore(e) {
@@ -146,14 +145,35 @@ function finalScore(e) {
   if (Int === "") {
     return;
   }
-  localStorage.setItem("User", Int);
-  const highscore = JSON.stringify(score);
-
-  localStorage.setItem("finalscore", highscore);
-
+  // let highscore = JSON.stringify(score);
+  // let IntialEl = JSON.stringify(Int);
+  // let script = [""];
+  
+  
+  
+  // localStorage.setItem("finalscore",JSON.stringify(script));
+  
+  myScore.push({
+    Int,
+    score
+  });
+  
+  localStorage.setItem("myScore", JSON.stringify(myScore))
+  
   window.location.replace("highscore.html");
   renderScoreBoard();
 }
+
+// let myScore = JSON.parse(window.localStorage.getItem("finalscore"));
+
+let myScore = localStorage.getItem("myScore");
+if (myScore) {
+  myScore = JSON.parse(myScore);
+} else {
+  myScore = [];
+}
+
+
 
 
 // when start is clicked it will replace the h1 with a question and the start button with 4 prompts

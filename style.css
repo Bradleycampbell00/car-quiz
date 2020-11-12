@@ -23,18 +23,18 @@
 .white {
     background-color: blueviolet;
     margin: 10px;
+    color: white;
     
 }
 
 .scoreboard {
     height: 500px;
-    width: 400px;
-    margin: 10px;
+    width: 800px;
     display: block;
     background-color: indigo; 
 }
 
 .body {
     height: 100%;
-    width: 100%;
+    width: ;
 }
